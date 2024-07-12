@@ -62,5 +62,23 @@ pub mod fs_example {
             writeln!(&mut file, "hello world!\n")?;
             Ok(())
         }
+        pub fn w2() -> std::io::Result<()> {
+            let temp_dir = env::temp_dir();
+            println!("temp_dir: {:?}", temp_dir);
+            let temp_file = temp_dir.join("temp_file");
+            // 覆盖
+            let mut file = std::fs::File::create(temp_file)?;
+            file.write("你好".as_bytes())?;
+            Ok(())
+        }
+        pub fn w3() -> std::io::Result<()> {
+            let temp_dir = env::temp_dir();
+            println!("temp_dir: {:?}", temp_dir);
+            let temp_file = temp_dir.join("temp_file");
+            // 追加
+            let mut file = std::fs::OpenOptions::new().append(true).open(temp_file)?;
+            file.write("你好".as_bytes())?;
+            Ok(())
+        }
     }
 }
